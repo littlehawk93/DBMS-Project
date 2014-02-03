@@ -1,2 +1,22 @@
+/*Master CSS File for Project*/
 
-# Master CSS File for Project
+#map_div
+{
+	border-style: none;
+	margin:0;
+	padding:0;
+}
+
+.state
+{
+	max-width: 80%;
+	max-height: 100%;
+}
+
+#usa
+{
+	border: none;
+	margin:0 auto;
+	max-width: 100%;
+	max-height: 100%;
+}
