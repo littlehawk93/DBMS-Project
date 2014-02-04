@@ -10,6 +10,7 @@ $(document).ready(function() {
 		//alert("You clicked on: " + $(this).attr("title"));
 		$("#back_button").show(500);
 		$("#map_div").append("<br class='state'><img class='state' src='img/state/" + clicked.attr("alt") + ".gif'></img>");
+		$("#stateBox, #statePara").hide(500);
 		return false;
 	});
 });
@@ -18,5 +19,6 @@ function goBack() {
 	$("#map_div").children(".state, #button").hide(500, function() { $(this).remove(); });
 	$("#back_button").hide(500);
 	$("#usa").show(500);
+	$("#stateBox, #statePara").show(500);
 	return false;
 }
