@@ -2,23 +2,38 @@
 *maps.js handles the canvas that holds the map of the USA
 */
 
+//This variable handles how many milliseconds the various animations take to perform
+var delay = 500;
+
+//Perform this code once the page is fully loaded
 $(document).ready(function() {
 	$("#back_button").hide();
 	$("area").click(function() {
 		var clicked = $(this);
-		$("#usa").hide(500);
-		//alert("You clicked on: " + $(this).attr("title"));
-		$("#back_button").show(500);
-		$("#map_div").append("<br class='state'><img class='state' src='img/state/" + clicked.attr("alt") + ".gif'></img>");
-		$("#stateBox, #statePara").hide(500);
+		goToState(clicked);
 		return false;
+	});
+	$("#stateBox").change(function() {
+		//Get the current text value from the selector
+		var curVal = $("#stateBox option:selected").text();
+		var state = $("area[title='" + curVal + "'");
+		goToState(state);
 	});
 });
 
+//Change from usa image to image of selected state
+function goToState(stateObj) {
+	$("#usa").hide(delay);
+	$("#back_button").show(delay);
+	$("#map_div").append("<br class='state'><img class='state' src='img/state/" + stateObj.attr("alt") + ".gif'></img>");
+	$("#stateBox, #statePara").hide(delay);
+}
+
+//Go back to full usa map
 function goBack() {
-	$("#map_div").children(".state, #button").hide(500, function() { $(this).remove(); });
-	$("#back_button").hide(500);
-	$("#usa").show(500);
-	$("#stateBox, #statePara").show(500);
-	return false;
+	$("#map_div").children(".state, #button").hide(delay, function() { $(this).remove(); });
+	$("#back_button").hide(delay);
+	$("#usa").show(delay);
+	$("#stateBox, #statePara").show(delay);
+	$('#stateBox option').eq(0).prop('selected', true);
 }
