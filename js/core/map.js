@@ -8,7 +8,7 @@ $(document).ready(function() {
 		$("#usa").hide(500);
 		//alert("You clicked on: " + $(this).attr("title"));
 		$("#map_div").append("<button class='state' onclick='goBack()' class='state'>Back</button><br class='state'>" + 
-			"<img class='state' src='img/state/" + clicked.attr("title") + ".gif'></img>");
+			"<img class='state' src='img/state/" + clicked.attr("alt") + ".gif'></img>");
 		return false;
 	});
 });
