@@ -5,33 +5,26 @@
 	$db = getDb();
 	
 	if(!isset($_GET['state'])) {
-		header("State Not Found", true, 404);
+		header("State Not Found", true, 400);
 		echo "State name is invalid";
 		exit();
 	}
 
 	$state = mysqli_real_escape_string($db, $_GET['state']);
 	
-	$query = "SELECT id FROM state WHERE name = \'$state\'";
+	$query = "SELECT c.* FROM county as c INNER JOIN state as s ON s.id = c.state_id WHERE s.name = '" . $state . "'";
 	
 	$result = mysqli_query($db, $query);
 	
-	$rows = mysqli_fetch_assoc($result);
-	
-	if(sizeof($rows) < 1) {
-		header("State Not Found", true, 404);
-		echo "State name is invalid";
-		exit();
+	while($row = mysqli_fetch_assoc($result))
+	{
+		$temp['id'] = $row['id'];
+		$temp['name'] = $row['name'];
+		$temp['state_id'] = $row['state_id'];
+		$temp['population'] = $row['population'];
+		$response[] = $temp;
 	}
 	
-	$id = $rows[0]['id'];
-	
-	$query = "SELECT * FROM county WHERE state_id = $id";
-	
-	$result = mysqli_query($db, $query);
-	
-	$rows = mysqli_fetch_assoc($result);
-	
-	header("OK", true, 200);
-	echo json_encode($rows);
+	header("application/json", true, 200);
+	echo json_encode($response);
 ?>
