@@ -16,6 +16,10 @@ $(document).ready(function() {
 	$("#stateBox").change(function() {
 		//Get the current text value from the selector
 		var curVal = $("#stateBox option:selected").text();
+		if(curVal != "NULL")
+		{
+			getCountiesForState(curVal);
+		}
 		var state = $("area[title='" + curVal + "'");
 		goToState(state);
 	});
@@ -27,6 +31,7 @@ function goToState(stateObj) {
 	$("#back_button").show(delay);
 	$("#map_div").append("<br class='state'><img class='state' src='img/state/" + stateObj.attr("alt") + ".gif'></img>");
 	$("#stateBox, #statePara").hide(delay);
+	getCountiesForState(stateObj.attr("title"));
 }
 
 //Go back to full usa map
@@ -36,4 +41,5 @@ function goBack() {
 	$("#usa").show(delay);
 	$("#stateBox, #statePara").show(delay);
 	$('#stateBox option').eq(0).prop('selected', true);
+	$('#countyBox').find('option').remove().end().append('<option value="NULL">- none -</option>').val('NULL');
 }
