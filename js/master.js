@@ -22,3 +22,17 @@ function getCountiesForState(name)
 		}
 	);
 }
+
+function notNull() {
+	if ($("#countyBox").find(":selected").index() > 0 && 
+	$("#ageBox").find(":selected").index() > 0 &&
+	$("#raceBox").find(":selected").index() > 0 &&
+	$("#genderBox").find(":selected").index() > 0) {
+		return true;
+	}
+	else
+		return false;
+}
+
+
+

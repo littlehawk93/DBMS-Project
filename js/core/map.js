@@ -23,6 +23,11 @@ $(document).ready(function() {
 		var state = $("area[title='" + curVal + "'");
 		goToState(state);
 	});
+	
+	$("#countyBox").change(function() { notNull(); });
+	$("#ageBox").change(function() { notNull(); });
+	$("#raceBox").change(function() { notNull(); });
+	$("#genderBox").change(function() { notNull(); });
 });
 
 //Change from usa image to image of selected state
