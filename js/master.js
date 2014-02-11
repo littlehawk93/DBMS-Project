@@ -24,15 +24,13 @@ function getCountiesForState(name)
 }
 
 function notNull() {
-	if ($("#countyBox").find(":selected").index() > 0 && 
-	$("#ageBox").find(":selected").index() > 0 &&
-	$("#raceBox").find(":selected").index() > 0 &&
-	$("#genderBox").find(":selected").index() > 0) {
+	console.log("here");
+	var county = $("#countyBox").find(":selected").index();
+	var age = $("#ageBox").find(":selected").index();
+	var race = $("#raceBox").find(":selected").index();
+	var gender = $("#genderBox").find(":selected").index()
+	if (county > 0 && age > 0 && race > 0 && gender > 0)
 		return true;
-	}
 	else
 		return false;
 }
-
-
-
