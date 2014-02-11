@@ -10,6 +10,7 @@ function getCountiesForState(name)
 			success: function(data, textStatus, jqXHR) {
 			
 				$("#countyBox").empty();
+				$("#countyBox").append('<option value="NULL">- none -</option>').val('NULL');
 				$.each(data, function(i, item) {
 					$("#countyBox").append("<option value=\"" + item.id + "\">" + item.name + "</option>");
 				});
