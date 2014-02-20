@@ -18,7 +18,7 @@ $(document).ready(function() {
 			
 				var races = data.race;
 				for(i=0;i<races.length;i++) {
-					$("#raceBox").append("<option value=\"" + races[i].id + "\">" + races[i].description + "</option>");
+					$("#raceBox").append("<option value=\"" + races[i].name + "\">" + races[i].description + "</option>");
 				}
 				
 				var ages = data.age;
@@ -46,9 +46,14 @@ $(document).ready(function() {
 		{
 			getCountiesForState(curVal);
 		}
-		var state = $("area[title='" + curVal + "'");
+		var state = $("area[title='" + curVal + "']");
 		goToState(state);
 	});
+	
+	$("#countyBox").change(function() { notNull(); });
+	$("#ageBox").change(function() { notNull(); });
+	$("#raceBox").change(function() { notNull(); });
+	$("#genderBox").change(function() { notNull(); });
 });
 
 //Change from usa image to image of selected state
@@ -68,4 +73,8 @@ function goBack() {
 	$("#stateBox, #statePara").show(delay);
 	$('#stateBox option').eq(0).prop('selected', true);
 	$('#countyBox').find('option').remove().end().append('<option value="NULL">- none -</option>').val('NULL');
+	$('#ageBox option').eq(0).prop('selected', true);
+	$('#raceBox option').eq(0).prop('selected', true);
+	$('#genderBox option').eq(0).prop('selected', true);
+	$("#demographics").hide(500);
 }

@@ -23,11 +23,11 @@
 	
 	$result = mysqli_query($cxn, $query);
 	
-	if($result) {
+	if(mysqli_num_rows($result) > 0) {
 		
 		$result = mysqli_fetch_assoc($result);
 		
-		header("Okay", true, 200);
+		header("Content-Type: application/json", true, 200);
 		echo json_encode($result);
 		
 	}
