@@ -3,19 +3,26 @@
 	include "DbConstants.php";
 	
 	$db = getDb();
-
-	$query = "SELECT * FROM `race`;";
 	
-	$results = $mysqli_query($query, $db);
+	$query = "SELECT * FROM race;";
 	
-	if(mysqli_num_rows($results) > 0) {
-		$rows = mysqli_fetch_assoc($results);
-		for($i=0;i<sizeof($rows);$i++) {
-			$temp["name"] = $rows[$i]["name"];
-			$temp["description"] = $rows[$i]["description"];
-			$temp["id"] = $rows[$i]["id"];
-			$response[] = $temp;
-		}
+	$results = mysqli_query($db, $query);
+	
+	
+	while($row = mysqli_fetch_assoc($results)) {
+	
+		$response["race"][] = $row;
 	}
+	
+	$query = "SELECT * FROM `age_group`;";
+	
+	$results = mysqli_query($db, $query);
+	
+	while($row = mysqli_fetch_assoc($results)) {
+		
+		$response["age"][] = $row;
+	}
+	
+	header("application/json", true, 200);
 	echo json_encode($response);
 ?>

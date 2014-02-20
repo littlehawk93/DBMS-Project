@@ -7,6 +7,32 @@ var delay = 500;
 
 //Perform this code once the page is fully loaded
 $(document).ready(function() {
+	
+	$.ajax(
+		"../lib/Init.php",
+		{
+			data: "",
+			dataType: "json",
+			type: "GET",
+			success: function(data, textStatus, jqXHR) {
+			
+				var races = data.race;
+				for(i=0;i<races.length;i++) {
+					$("#raceBox").append("<option value=\"" + races[i].id + "\">" + races[i].description + "</option>");
+				}
+				
+				var ages = data.age;
+				for(i=0;i<ages.length;i++) {
+					$("#ageBox").append("<option value=\"" + ages[i].id  +"\">" + ages[i].name + "</option>");
+				}
+			},
+			error: function() {
+				
+				// Error Handling here
+			}
+		}
+	);
+
 	$("#back_button").hide();
 	$("area").click(function() {
 		var clicked = $(this);
