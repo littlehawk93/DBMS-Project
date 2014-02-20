@@ -69,7 +69,7 @@ function getChartInfo(s, c, a, r, g) {
 					);
 				});
 				var ctx = document.getElementById("chart" + i).getContext("2d");
-				var newChart = new Chart(ctx).Bar(function1,function2);
+				var newChart = new Chart(ctx).Bar(createChartData(item), getOptions());
 			},
 			error: function() {
 				//Error handling here
