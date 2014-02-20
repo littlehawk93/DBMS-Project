@@ -60,6 +60,7 @@ $(document).ready(function() {
 function goToState(stateObj) {
 	$("#usa").hide(delay);
 	$("#back_button").show(delay);
+	$("#stateBox").val(stateObj.attr("title"));
 	$("#map_div").append("<br class='state'><img class='state' src='img/state/" + stateObj.attr("alt") + ".gif'></img>");
 	$("#stateBox, #statePara").hide(delay);
 	getCountiesForState(stateObj.attr("title"));
