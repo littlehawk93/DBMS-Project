@@ -17,20 +17,48 @@ function getCountiesForState(name)
 			},
 			error: function() {
 				
-				// Error Handling here
+				//Error Handling here
+			}
+		}
+	);
+}
+
+function getDemoInfo(s, c, a, r, g) {
+	$.ajax(
+		"../lib/Demographic.php",
+		{
+			data: "s="+s+"&c="+c+"&a="+a+"&r="+r+"&g="+g,
+			dataType: "json",
+			type: "GET",
+			success: function(data, textStatus, jqXHR) {
+				$("#demographics").append("<h1>Demographic Information</h1><p>State: " + data.state_name + "</p><p>\
+				State Population: " + data.state_pop + "</p><p>County: " + data.county_name + "</p>\
+				<p>County Population: " + data.county_pop + "</p><p>Age Group: " + data.age_group_name + "</p>\
+				<p>Race: " + data.race_description + "</p><p>Gender: " + data.gender + "</p><p>\
+				Selected Population: " + data.pop_size + "</p>");
+			},
+			error: function() {
+				//Error Handling here
 			}
 		}
 	);
 }
 
 function notNull() {
-	console.log("here");
+	var state = $("#stateBox").find(":selected").index()
 	var county = $("#countyBox").find(":selected").index();
 	var age = $("#ageBox").find(":selected").index();
 	var race = $("#raceBox").find(":selected").index();
-	var gender = $("#genderBox").find(":selected").index()
-	if (county > 0 && age > 0 && race > 0 && gender > 0)
+	var gender = $("#genderBox").find(":selected").index();
+	if (county > 0 && age > 0 && race > 0 && gender > 0) {
 		return true;
+		state = $("#stateBox").find(":selected").val();
+		county = $("#countyBox").find(":selected").val();
+		age = $("#ageBox").find(":selected").val();
+		race = $("#raceBox").find(":selected").val();
+		gender = $("#genderBox").find(":selected").val();
+		getDemoInfo(state, county, age, race, gender);
+	}
 	else
 		return false;
 }
