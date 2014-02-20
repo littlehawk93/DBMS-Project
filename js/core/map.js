@@ -8,6 +8,11 @@ var delay = 500;
 //Perform this code once the page is fully loaded
 $(document).ready(function() {
 	
+	$("#countyBox").prop('disabled', true);
+	$("#raceBox").prop('disabled', true);
+	$("#genderBox").prop('disabled', true);
+	$("#ageBox").prop('disabled', true);
+	
 	$.ajax(
 		"../lib/Init.php",
 		{
@@ -64,6 +69,10 @@ function goToState(stateObj) {
 	$("#map_div").append("<br class='state'><img class='state' src='img/state/" + stateObj.attr("alt") + ".gif'></img>");
 	$("#stateBox, #statePara").hide(delay);
 	getCountiesForState(stateObj.attr("title"));
+	$("#countyBox").prop('disabled', false);
+	$("#raceBox").prop('disabled', false);
+	$("#genderBox").prop('disabled', false);
+	$("#ageBox").prop('disabled', false);
 }
 
 //Go back to full usa map
@@ -78,4 +87,8 @@ function goBack() {
 	$('#raceBox option').eq(0).prop('selected', true);
 	$('#genderBox option').eq(0).prop('selected', true);
 	$("#demographics").hide(500);
+	$("#countyBox").prop('disabled', true);
+	$("#raceBox").prop('disabled', true);
+	$("#genderBox").prop('disabled', true);
+	$("#ageBox").prop('disabled', true);
 }
