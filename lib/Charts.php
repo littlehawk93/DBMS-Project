@@ -2,7 +2,7 @@
 
 include "DbConstants.php";
 
-if(!isset($_GET['s'])) {
+if(!isset($_GET['s']) || isset($_GET['a'])) {
 	header("Bad Request", true, 400);
 	exit();
 }
@@ -62,24 +62,23 @@ if(isset($flags['c'])) {
 
 if(isset($flags['a'])) {
 	$where .= " AND p.age_group_id = " . $age_grp;
+	exit();
 }
 
 if(isset($flags['g'])) {
-	$where .= " AND p.age_group_id = '" . $gender . "'";
+	$where .= " AND p.gender = '" . $gender . "'";
 }
 
 if(isset($flags['r'])) {
 	$where .= " AND p.race_id = " . $race;
 }
 
-$master_results = Array();
-
 if(!isset($flags['a'])) {
 
 	$temp["title"] = "Age Groups For " . $title_append;
 	$temp["results"] = Array();
 	
-	$query = "SELECT a.name as name, SUM(p.size) as sum" . $from . " JOIN age_group a ON a.id = p.age_group_id" . $where . " AND a.id != 4 GROUP BY a.id";
+	$query = "SELECT * FROM (SELECT a.name as name, SUM(p.size) as sum" . $from . " JOIN age_group a ON a.id = p.age_group_id" . $where . " AND a.id != 4 GROUP BY a.id) AS t ORDER BY sum DESC LIMIT 12";
 	
 	$results = mysqli_query($db, $query);
 	$num = mysqli_num_rows($results);
@@ -89,50 +88,11 @@ if(!isset($flags['a'])) {
 			$tmp["value"] = $result["sum"];
 			$temp["results"][] = $tmp;
 		}
-		$master_results[] = $temp;
+		$temp["query"] = $query;
+		header("Content-Type: application/json", true, 200);
+		echo json_encode($temp);
 	}
 }
-
-if(!isset($flags['g'])) {
-
-	$temp["title"] = "Genders For " . $title_append;
-	$temp["Results"] = Array();
-	
-	$query = "SELECT p.gender as name, SUM(p.size) as sum" . $from . $where . " GROUP BY p.gender";
-	
-	$results = mysqli_query($db, $query);
-	$num = mysqli_num_rows($results);
-	if($num > 0) {
-		while($result = mysqli_fetch_assoc($results)) {
-			$tmp["title"] = $result["name"];
-			$tmp["value"] = $result["sum"];
-			$temp["results"][] = $tmp;
-		}
-		$master_results[] = $temp;
-	}
-}
-
-if(!isset($flags['r'])) {
-	
-	$temp["title"] = "Races For " . $title_append;
-	$temp["results"] = Array();
-	
-	$query = "SELECT r.description as name, SUM(p.size) as sum" . $from . " JOIN race r ON r.id = p.race_id" . $where . " GROUP BY r.id";
-	
-	$results = mysqli_query($db, $query);
-	$num = mysqli_num_rows($results);
-	if($num > 0) {
-		while($result = mysqli_fetch_assoc($results)) {
-			$tmp["title"] = $result["name"];
-			$tmp["value"] = $result["sum"];
-			$temp["results"][] = $tmp;
-		}
-		$master_results[] = $temp;
-	}
-}
-
-header("Content-Type: application/json", true, 200);
-echo json_encode($master_results);
 
 exit();
 

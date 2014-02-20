@@ -45,6 +45,8 @@ $(document).ready(function() {
 		return false;
 	});
 	$("#stateBox").change(function() {
+		
+		notNull();
 		//Get the current text value from the selector
 		var curVal = $("#stateBox option:selected").text();
 		if(curVal != "NULL")
@@ -77,6 +79,7 @@ function goToState(stateObj) {
 
 //Go back to full usa map
 function goBack() {
+	$("#chartContainer").hide(500);
 	$("#map_div").children(".state, #button").hide(delay, function() { $(this).remove(); });
 	$("#back_button").hide(delay);
 	$("#usa").show(delay);

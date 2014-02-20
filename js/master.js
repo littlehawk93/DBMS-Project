@@ -30,6 +30,7 @@ function getDemoInfo(s, c, a, r, g) {
 			dataType: "json",
 			type: "GET",
 			success: function(data, textStatus, jqXHR) {
+				$("#chartContainer").hide(500);
 				$("#demographics").empty().append("<h1>Demographic Information</h1><p>State: " + data.state_name + "</p><p>\
 				State Population: " + data.state_pop + "</p><p>County: " + data.county_name + "</p>\
 				<p>County Population: " + data.county_pop + "</p><p>Age Group: " + data.age_group_name + "</p>\
@@ -52,24 +53,29 @@ function getChartInfo(s, c, a, r, g) {
 	if(g != -1) string += "&g="+g;
 	console.log(string);
 	$.ajax(
-		"../lib/charts.php",
+		"../lib/Charts.php",
 		{
 			data:string,
 			dataType: "json",
 			type: "GET",
 			success: function(data, textStatus, jqXHR) {
-				$.each(data, function(i, item) {
-					$("#chartContainer").append(
-						"<div class='row'>\
-							<div class='col-md-12'>\
-								<h3>" + data.title + "</h3>\
-								<canvas id='chart" + i +"' width=100% height=200px></canvas>\
-							</div>\
-						</div>"
-					);
-				});
+				
+				console.log(data.query);
+				$("#chartContainer").empty();
+				$("#chartContainer").append(
+					"<div class='row'>\
+						<div class='col-md-12'>\
+							<h3>" + data.title + "</h3>\
+							<center><canvas id='chart" + i +"' width='800px' height='300px'></canvas></center>\
+						</div>\
+					</div>"
+				);
+				
 				var ctx = document.getElementById("chart" + i).getContext("2d");
-				var newChart = new Chart(ctx).Bar(createChartData(item), getOptions());
+				barData = createChartData(data.results);
+				
+				var newChart = new Chart(ctx).Bar(barData, getOptions());
+				$("#chartContainer").show(500);
 			},
 			error: function() {
 				//Error handling here
@@ -84,6 +90,16 @@ function notNull() {
 	var age = $("#ageBox").find(":selected").index();
 	var race = $("#raceBox").find(":selected").index();
 	var gender = $("#genderBox").find(":selected").index();
+	if(state > 0) {
+		s = $("#stateBox").find(":selected").val();
+		c = (county > 0) ? $("#countyBox").find(":selected").val() : -1;
+		a = (age > 0) ? $("#ageBox").find(":selected").val() : -1;
+		r = (race > 0) ? $("#raceBox").find(":selected").val() : -1;
+		g = (gender > 0) ? $("#genderBox").find(":selected").val() : -1;
+		if(a < 0) {
+			getChartInfo(s, c, a, r, g);
+		}
+	}
 	if (county > 0 && age > 0 && race > 0 && gender > 0) {
 		state = $("#stateBox").find(":selected").val();
 		county = $("#countyBox").find(":selected").val();
@@ -95,11 +111,12 @@ function notNull() {
 	}
 	else {
 		$("#demographics").hide(500);
+		$("#chartContainer").hide(500);
 		return false;
 	}
 }
 
-function createChartData(data) {
+function createChartData(sdata) {
 
 	cdata = {
 		labels : new Array(),
@@ -112,9 +129,9 @@ function createChartData(data) {
 		]
 	}
 	
-	for(var i=0;i<data;i++) {
-		cdata.labels.push(data.results[i].title);
-		cdata.datasets[0].data.push(data.results[i].value);
+	for(var i=0;i<sdata.length;i++) {
+		cdata.labels.push(sdata[i].title);
+		cdata.datasets[0].data.push(sdata[i].value);
 	}
 	return cdata;
 }
@@ -122,8 +139,7 @@ function createChartData(data) {
 function getOptions() {
 	
 	data = {
-		animation: false,
-		scaleFontSize: 10,
+		
 	}
 	return data; 
 }
