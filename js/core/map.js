@@ -73,5 +73,8 @@ function goBack() {
 	$("#stateBox, #statePara").show(delay);
 	$('#stateBox option').eq(0).prop('selected', true);
 	$('#countyBox').find('option').remove().end().append('<option value="NULL">- none -</option>').val('NULL');
+	$('#ageBox option').eq(0).prop('selected', true);
+	$('#raceBox option').eq(0).prop('selected', true);
+	$('#genderBox option').eq(0).prop('selected', true);
 	$("#demographics").hide(500);
 }
