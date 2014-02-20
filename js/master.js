@@ -8,7 +8,7 @@ function getCountiesForState(name)
 			dataType: "json",
 			type: "GET",
 			success: function(data, textStatus, jqXHR) {
-			
+				
 				$("#countyBox").empty();
 				$("#countyBox").append('<option value="NULL">- none -</option>').val('NULL');
 				$.each(data, function(i, item) {
