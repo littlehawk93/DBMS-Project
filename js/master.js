@@ -98,3 +98,32 @@ function notNull() {
 		return false;
 	}
 }
+
+function createChartData(data) {
+
+	cdata = {
+		labels : new Array(),
+		datasets : [
+			{
+				fillColor : "rgba(10, 76, 131, 1.0)",
+				strokeColor : "rgba(1, 32, 58, 1.0)",
+				data : new Array()
+			}
+		]
+	}
+	
+	for(var i=0;i<data;i++) {
+		cdata.labels.push(data.results[i].title);
+		cdata.datasets[0].data.push(data.results[i].value);
+	}
+	return cdata;
+}
+
+function getOptions() {
+	
+	data = {
+		animation: false,
+		scaleFontSize: 10,
+	}
+	return data; 
+}
