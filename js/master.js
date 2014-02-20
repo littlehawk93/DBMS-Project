@@ -68,6 +68,8 @@ function getChartInfo(s, c, a, r, g) {
 						</div>"
 					);
 				});
+				var ctx = document.getElementById("chart" + i).getContext("2d");
+				var newChart = new Chart(ctx).Bar(function1,function2);
 			},
 			error: function() {
 				//Error handling here
