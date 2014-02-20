@@ -31,7 +31,7 @@ function getDemoInfo(s, c, a, r, g) {
 			dataType: "json",
 			type: "GET",
 			success: function(data, textStatus, jqXHR) {
-				$("#demographics").append("<h1>Demographic Information</h1><p>State: " + data.state_name + "</p><p>\
+				$("#demographics").empty().append("<h1>Demographic Information</h1><p>State: " + data.state_name + "</p><p>\
 				State Population: " + data.state_pop + "</p><p>County: " + data.county_name + "</p>\
 				<p>County Population: " + data.county_pop + "</p><p>Age Group: " + data.age_group_name + "</p>\
 				<p>Race: " + data.race_description + "</p><p>Gender: " + data.gender + "</p><p>\
