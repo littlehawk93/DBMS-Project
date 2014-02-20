@@ -23,7 +23,7 @@
 	
 	$result = mysqli_query($cxn, $query);
 	
-	if($result) {
+	if(mysqli_num_rows($result) > 0) {
 		
 		$result = mysqli_fetch_assoc($result);
 		

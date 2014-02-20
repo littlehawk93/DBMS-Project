@@ -36,6 +36,7 @@ function getDemoInfo(s, c, a, r, g) {
 				<p>County Population: " + data.county_pop + "</p><p>Age Group: " + data.age_group_name + "</p>\
 				<p>Race: " + data.race_description + "</p><p>Gender: " + data.gender + "</p><p>\
 				Selected Population: " + data.pop_size + "</p>");
+				$("#demographics").show(500);
 			},
 			error: function() {
 				//Error Handling here
@@ -59,6 +60,8 @@ function notNull() {
 		getDemoInfo(state, county, age, race, gender);
 		return true;
 	}
-	else
+	else {
+		$("#demographics").hide(500);
 		return false;
+	}
 }

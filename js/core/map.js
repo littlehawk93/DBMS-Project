@@ -46,7 +46,7 @@ $(document).ready(function() {
 		{
 			getCountiesForState(curVal);
 		}
-		var state = $("area[title='" + curVal + "'");
+		var state = $("area[title='" + curVal + "']");
 		goToState(state);
 	});
 	
