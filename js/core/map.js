@@ -73,4 +73,5 @@ function goBack() {
 	$("#stateBox, #statePara").show(delay);
 	$('#stateBox option').eq(0).prop('selected', true);
 	$('#countyBox').find('option').remove().end().append('<option value="NULL">- none -</option>').val('NULL');
+	$("#demographics").hide(500);
 }
