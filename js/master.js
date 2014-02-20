@@ -16,8 +16,7 @@ function getCountiesForState(name)
 				});
 			},
 			error: function() {
-				
-				//Error Handling here
+				//Error handling here
 			}
 		}
 	);
@@ -39,7 +38,39 @@ function getDemoInfo(s, c, a, r, g) {
 				$("#demographics").show(500);
 			},
 			error: function() {
-				//Error Handling here
+				//Error handling here
+			}
+		}
+	);
+}
+
+function getChartInfo(s, c, a, r, g) {
+	var string = "s=" + s;
+	if(c != -1) string += "&c="+c;
+	if(a != -1) string += "&a="+a;
+	if(r != -1) string += "&r="+r;
+	if(g != -1) string += "&g="+g;
+	console.log(string);
+	$.ajax(
+		"../lib/charts.php",
+		{
+			data:string,
+			dataType: "json",
+			type: "GET",
+			success: function(data, textStatus, jqXHR) {
+				$.each(data, function(i, item) {
+					$("#chartContainer").append(
+						"<div class='row'>\
+							<div class='col-md-12'>\
+								<h3>" + data.title + "</h3>\
+								<canvas id='chart" + i +"' width=100% height=200px></canvas>\
+							</div>\
+						</div>"
+					);
+				});
+			},
+			error: function() {
+				//Error handling here
 			}
 		}
 	);
