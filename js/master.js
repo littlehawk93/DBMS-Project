@@ -25,7 +25,7 @@ function getCountiesForState(name)
 
 function getDemoInfo(s, c, a, r, g) {
 	$.ajax(
-		"../lib/Demographic.php",
+		"../lib/Demographics.php",
 		{
 			data: "s="+s+"&c="+c+"&a="+a+"&r="+r+"&g="+g,
 			dataType: "json",
