@@ -18,7 +18,7 @@ $(document).ready(function() {
 			
 				var races = data.race;
 				for(i=0;i<races.length;i++) {
-					$("#raceBox").append("<option value=\"" + races[i].id + "\">" + races[i].description + "</option>");
+					$("#raceBox").append("<option value=\"" + races[i].name + "\">" + races[i].description + "</option>");
 				}
 				
 				var ages = data.age;
