@@ -84,11 +84,8 @@ if(!isset($flags['a'])) {
 	$results = mysqli_query($db, $query);
 	$num = mysqli_num_rows($results);
 	if($num > 0) {
-		$hues = gethues($num);
-		for($i=0;$i<$num;$i++) {
-			$result = mysqli_fetch_assoc($results);
+		while($result = mysqli_fetch_assoc($results)) {
 			$tmp["title"] = $result["name"];
-			$tmp["color"] = $hues[$i];
 			$tmp["value"] = $result["sum"];
 			$temp["results"][] = $tmp;
 		}
@@ -106,11 +103,8 @@ if(!isset($flags['g'])) {
 	$results = mysqli_query($db, $query);
 	$num = mysqli_num_rows($results);
 	if($num > 0) {
-		$hues = gethues($num);
-		for($i=0;$i<$num;$i++) {
-			$result = mysqli_fetch_assoc($results);
+		while($result = mysqli_fetch_assoc($results)) {
 			$tmp["title"] = $result["name"];
-			$tmp["color"] = $hues[$i];
 			$tmp["value"] = $result["sum"];
 			$temp["results"][] = $tmp;
 		}
@@ -128,11 +122,8 @@ if(!isset($flags['r'])) {
 	$results = mysqli_query($db, $query);
 	$num = mysqli_num_rows($results);
 	if($num > 0) {
-		$hues = gethues($num);
-		for($i=0;$i<$num;$i++) {
-			$result = mysqli_fetch_assoc($results);
+		while($result = mysqli_fetch_assoc($results)) {
 			$tmp["title"] = $result["name"];
-			$tmp["color"] = $hues[$i];
 			$tmp["value"] = $result["sum"];
 			$temp["results"][] = $tmp;
 		}
@@ -144,61 +135,5 @@ header("Content-Type: application/json", true, 200);
 echo json_encode($master_results);
 
 exit();
-
-function gethues($num)
-{
-	$hues = Array();
-	
-	$slice = 360.0 / $num;
-	
-	for($i=0;$i<360;$i+=$slice)
-	{
-		$hues[] = hsl2rgb($i, 180, 100);
-	}
-	shuffle($hues);
-	return $hues;
-}
-
-function hsl2rgb( $h, $s, $l ){
-    $r; 
-    $g; 
-    $b;
- 
-    $c = ( 1 - abs( 2 * $l - 1 ) ) * $s;
-    $x = $c * ( 1 - abs( fmod( ( $h / 60 ), 2 ) - 1 ) );
-    $m = $l - ( $c / 2 );
- 
-    if ( $h < 60 ) {
-        $r = $c;
-        $g = $x;
-        $b = 0;
-    } else if ( $h < 120 ) {
-        $r = $x;
-        $g = $c;
-        $b = 0;            
-    } else if ( $h < 180 ) {
-        $r = 0;
-        $g = $c;
-        $b = $x;                    
-    } else if ( $h < 240 ) {
-        $r = 0;
-        $g = $x;
-        $b = $c;
-    } else if ( $h < 300 ) {
-        $r = $x;
-        $g = 0;
-        $b = $c;
-    } else {
-        $r = $c;
-        $g = 0;
-        $b = $x;
-    }
- 
-    $r = ( $r + $m ) * 255;
-    $g = ( $g + $m ) * 255;
-    $b = ( $b + $m  ) * 255;
-	
-    return sprintf("rgba(%d, %d, %d, 1)", abs($r % 256), abs($g % 256), abs($b % 256));
-}
 
 ?>
