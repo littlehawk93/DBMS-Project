@@ -51,13 +51,13 @@ function notNull() {
 	var race = $("#raceBox").find(":selected").index();
 	var gender = $("#genderBox").find(":selected").index();
 	if (county > 0 && age > 0 && race > 0 && gender > 0) {
-		return true;
 		state = $("#stateBox").find(":selected").val();
 		county = $("#countyBox").find(":selected").val();
 		age = $("#ageBox").find(":selected").val();
 		race = $("#raceBox").find(":selected").val();
 		gender = $("#genderBox").find(":selected").val();
 		getDemoInfo(state, county, age, race, gender);
+		return true;
 	}
 	else
 		return false;
