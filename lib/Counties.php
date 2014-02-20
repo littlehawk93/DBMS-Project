@@ -25,6 +25,6 @@
 		$response[] = $temp;
 	}
 	
-	header("application/json", true, 200);
+	header("Content_Type: application/json", true, 200);
 	echo json_encode($response);
 ?>

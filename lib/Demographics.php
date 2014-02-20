@@ -27,7 +27,7 @@
 		
 		$result = mysqli_fetch_assoc($result);
 		
-		header("application/json", true, 200);
+		header("Content-Type: application/json", true, 200);
 		echo json_encode($result);
 		
 	}
